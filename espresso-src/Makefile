@@ -1,9 +1,15 @@
+CDIR := $(PWD)
+TARGETDIR := $(CDIR)/bin
+
 SRC := $(wildcard *.c)
+OBJ := $(patsubst %.c,$(TARGETDIR)/%.o,$(SRC))
 
-OBJ := ${SRC:.c=.o}
-
-TARGETDIR := ../bin
 TARGET := $(TARGETDIR)/espresso
+
+$(info $(OBJ))
+
+$(TARGETDIR)/%.o: %.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) -c -o $@ $<
 
 all: prepare $(TARGET)
 
@@ -13,7 +19,7 @@ prepare:
 $(TARGET): $(OBJ)
 	$(LINK.c) $(OBJ) -o $(TARGET)
 
-clean: 
+clean:
 	@- $(RM) -r $(TARGETDIR)
 	@- $(RM) $(OBJ)
 
