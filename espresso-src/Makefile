@@ -6,8 +6,6 @@ OBJ := $(patsubst %.c,$(TARGETDIR)/%.o,$(SRC))
 
 TARGET := $(TARGETDIR)/espresso
 
-$(info $(OBJ))
-
 $(TARGETDIR)/%.o: %.c
 	$(CC) $(CFLAGS) $(CPPFLAGS) -c -o $@ $<
 
